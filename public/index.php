@@ -1,6 +1,6 @@
 <?php
 
-include dirname(__DIR__).'/bootstrap.php';
+require dirname(__DIR__).'/bootstrap.php';
 
 // Default bot
 $defaultBot = telegram()->getMe();
