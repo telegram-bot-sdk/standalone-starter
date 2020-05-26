@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-include __DIR__.'/bootstrap/bot.php';
+include __DIR__.'/bootstrap.php';
 
 use Illuminate\Support\Str;
 
