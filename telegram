@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+include __DIR__.'/bootstrap/bot.php';
+
+use Illuminate\Support\Str;
+
+if (!isset($argv[1])) {
+    exit('No command given');
+}
+
+if (!isset($argv[2])) {
+    // No bot name, fallback to default.
+    $argv[2] = 'default';
+}
+
+if (mb_strpos($argv[1], ':') !== false) {
+    [$class, $command] = explode(':', $argv[1]);
+
+    $console = 'Bot\Console\\'.Str::studly($class);
+    if (class_exists($console)) {
+        $bot = telegram()->bot($argv[2]);
+
+        $handler = new $console($bot);
+        if (method_exists($handler, $command)) {
+            return $handler->$command();
+        }
+    }
+}
+
+
+
+
