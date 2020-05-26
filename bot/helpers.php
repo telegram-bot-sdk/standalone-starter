@@ -76,6 +76,10 @@ function telegram(): BotManager
  */
 function get_var($param)
 {
+    if (null === $_GET) {
+        return null;
+    }
+
     $_GET = array_map('trim', $_GET);
     $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
