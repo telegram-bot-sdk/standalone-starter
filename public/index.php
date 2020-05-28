@@ -2,8 +2,12 @@
 
 require dirname(__DIR__).'/bootstrap.php';
 
+use Bot\Facades\Telegram;
+
 // Default bot
-$defaultBot = telegram()->getMe();
+// Using facade as an example.
+$defaultBot = Telegram::getMe();
 
 // Second bot
-//$secondBot = telegram()->bot('second')->getMe();
+// Using helper method
+// $secondBot = telegram()->bot('second')->getMe();

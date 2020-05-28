@@ -17,17 +17,26 @@ composer create-project telegram-bot-sdk/standalone-starter mybot
 ```
 
 - Create a bot with Botfather.
-- Copy `.env.example` to `.env` and configure your token and domain.
+- Open `.env` and configure your token and domain (Copy `.env.example` if you have cloned this project).
 - Explore `config/telegram.php`
+- Follow docs.
 - Build bots!
+
+### Helpers
+
+The starter comes with some useful helpers for convenience that can be found in `bot/helpers.php`.
+
+- `telegram()` - Get an instance of BotManager from the container.
 
 ## Directory Structure
 
 ```
 .
-├── bot
+├── bootstrap - Bot bootstrapping files.
+├── bot - Your bot main files.
 │   ├── Commands - Bot commands.
 │   ├── Console - CLI console commands.
+│   ├── Facades - Bot Facades.
 │   ├── Http - Bot controllers.
 │   └── Listeners - Event Listeners.
 ├── config - Config files.

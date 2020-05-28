@@ -3,6 +3,7 @@
 namespace Bot\Listeners;
 
 use Telegram\Bot\Events\UpdateEvent;
+use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class ProcessInboundPhoto
 {
@@ -11,7 +12,7 @@ class ProcessInboundPhoto
      *
      * @param  UpdateEvent  $event
      *
-     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     * @throws TelegramSDKException
      */
     public function handle(UpdateEvent $event)
     {

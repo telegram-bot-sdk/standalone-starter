@@ -22,7 +22,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Bot\\": "bot/"
+      "Bot\\": "bot/",
+      "Bot\\Bootstrap\\": "bootstrap/"
     },
     "files": [
       "bot/helpers.php"

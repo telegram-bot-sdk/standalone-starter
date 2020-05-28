@@ -14,11 +14,9 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-/**
- * Use Dotenv to set required environment variables and load .env file in root
- */
+use Bot\Bootstrap\Bot;
+use Illuminate\Container\Container;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-if (file_exists(__DIR__.'/.env')) {
-    $dotenv->load();
-}
+Container::setInstance(new Container);
+
+Container::getInstance()->make(Bot::class)->bootstrap();

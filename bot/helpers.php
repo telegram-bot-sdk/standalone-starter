@@ -11,6 +11,24 @@
 
 use Illuminate\Support\Arr;
 use Telegram\Bot\BotManager;
+use Illuminate\Container\Container;
+
+if (!function_exists('dd')) {
+    /**
+     * Dump and die helper.
+     *
+     * @param  mixed  ...$vars
+     */
+    function dd(...$vars)
+    {
+        collect($vars)->each(static function ($var) {
+            echo '<pre>';
+            print_r($var);
+            echo '</pre>';
+        });
+        die;
+    }
+}
 
 /**
  * Root path of your project.
@@ -24,47 +42,94 @@ function root_path(string $path = null): string
     return dirname(__DIR__).($path ? DIRECTORY_SEPARATOR.ltrim($path, '/') : '');
 }
 
-/**
- * Get or set configuration value using "dot" notation.
- *
- * @param  null        $key
- * @param  mixed|null  $default
- *
- * @return mixed
- */
-function telegram_config($key = null, $default = null)
-{
-    static $config = null;
+if (!function_exists('config')) {
+    /**
+     * Get or set configuration value using "dot" notation.
+     *
+     * @param  string|array|null  $key
+     * @param  mixed|null         $default
+     *
+     * @return mixed
+     */
+    function config($key = null, $default = null)
+    {
+        $configs = app('config');
 
-    if (null === $config) {
-        $config = require root_path('config/telegram.php');
-    }
-
-    if (null === $key) {
-        return $config;
-    }
-
-    if (is_array($key)) {
-        foreach ($key as $name => $value) {
-            Arr::set($config, $name, $value);
+        if (null === $key) {
+            return $configs;
         }
 
-        return true;
-    }
+        if (is_array($key)) {
+            foreach ($key as $name => $value) {
+                Arr::set($configs, $name, $value);
+            }
 
-    return Arr::get($config, $key, $default);
+            app()->instance('config', $configs);
+
+            return true;
+        }
+
+        return Arr::get($configs, $key, $default);
+    }
+}
+
+if (!function_exists('resolve')) {
+    /**
+     * Resolve a service from the container.
+     *
+     * @param  string  $name
+     * @param  array   $parameters
+     *
+     * @return mixed
+     */
+    function resolve($name, array $parameters = [])
+    {
+        return app($name, $parameters);
+    }
+}
+
+if (!function_exists('app')) {
+    /**
+     * Get the available container instance.
+     *
+     * @param  string|null  $abstract
+     * @param  array        $parameters
+     *
+     * @return mixed|\Illuminate\Contracts\Container\Container
+     */
+    function app($abstract = null, array $parameters = [])
+    {
+        if (is_null($abstract)) {
+            return Container::getInstance();
+        }
+
+        return Container::getInstance()->make($abstract, $parameters);
+    }
+}
+
+if (!function_exists('swap')) {
+    /**
+     * Swap the given class implementation in the container.
+     *
+     * @param  string  $class
+     * @param  mixed   $instance
+     *
+     * @return void
+     */
+    function swap($class, $instance)
+    {
+        app()->instance($class, $instance);
+    }
 }
 
 /**
- * Create a new instance of BotManager with our config file.
+ * Resolve BotManager from the container.
  *
  * @return BotManager
  */
 function telegram(): BotManager
 {
-    static $telegram;
-
-    return $telegram ??= new BotManager(telegram_config());
+    return app('telegram');
 }
 
 /**
