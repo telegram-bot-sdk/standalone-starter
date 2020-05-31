@@ -55,7 +55,7 @@ The starter comes with some useful helpers for convenience that can be found in 
 Open `.env` and fill your domain:
 
 ```
-TELEGRAM_WEBHOOK_DOMAIN=<www.yourdomain.com>
+TELEGRAM_WEBHOOK_DOMAIN=www.yourdomain.com
 ```
 
 The standalone starter comes with a CLI helper to setup webhook for your bot. Simply fire the below command.
@@ -67,7 +67,7 @@ php telegram webhook:setup <botname>
 This will setup your bot's webhook to this URL:
 
 ```
-<https://www.yourdomain.com>/webhook.php?token=YourBotToken&bot=YourBotName
+https://<www.yourdomain.com>/webhook.php?token=YourBotToken&bot=YourBotName
 ```
 
 The webhook file will verify any inbound requests to make sure its a valid request from Telegram.
