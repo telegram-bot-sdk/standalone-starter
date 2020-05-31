@@ -32,6 +32,7 @@ The starter comes with some useful helpers for convenience that can be found in 
 
 ```
 .
+├── .env - Project environment variable.
 ├── bootstrap - Bot bootstrapping files.
 ├── bot - Your bot main files.
 │   ├── Commands - Bot commands.
@@ -40,12 +41,22 @@ The starter comes with some useful helpers for convenience that can be found in 
 │   ├── Http - Bot controllers.
 │   └── Listeners - Event Listeners.
 ├── config - Config files.
+|   └── telegram.php - Your main SDK configuration.
 └── public - Public facing files.
+    └── index.php - Project index file.
+    └── pooling.php - Long-pooling update handler.
+    └── webhook.php - Webhook update handler.
 ```
 
 ## Webhook Setup
 
 > **IMPORTANT:** Telegram requires your domain to have an SSL certificate (https) to setup a webhook.
+
+Open `.env` and fill your webhook URL with :
+
+```
+TELEGRAM_WEBHOOK_DOMAIN=<https://yourdomain.com>
+```
 
 The standalone starter comes with a CLI helper to setup webhook for your bot. Simply fire the below command.
 
@@ -56,7 +67,7 @@ php telegram webhook:setup <botname>
 This will setup a webhook with a URL example:
 
 ```
-https://domain.com/webhook.php?token=YourBotToken&bot=YourBotName
+<https://yourdomain.com>/webhook.php?token=YourBotToken&bot=YourBotName
 ```
 
 The webhook file will verify any inbound requests to make sure its a valid request from Telegram.
