@@ -55,6 +55,8 @@ class Webhook
             'bot'   => $this->bot->config('bot'),
         ]);
 
-        return sprintf("%s/webhook.php?%s", $domain, $params);
+        $domain = parse_url($domain, PHP_URL_HOST) ?? $domain;
+
+        return sprintf("https://%s/webhook.php?%s", $domain, $params);
     }
 }
