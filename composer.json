@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": "^7.4",
+    "php": ">=8.1",
     "phpoption/phpoption": "^1.7",
     "telegram-bot-sdk/telegram-bot-sdk": "^4.0@dev",
     "vlucas/phpdotenv": "^5.2"
